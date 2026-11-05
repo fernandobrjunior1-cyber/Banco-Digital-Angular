@@ -1,0 +1,289 @@
+
+.clientes-container {
+  margin-top: 30px;
+  padding: 25px;
+  background-color: #f8fafc;
+  border: 1px solid #dbe3ee;
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+.clientes-container h2 {
+  color: #1554a3;
+  margin-bottom: 20px;
+}
+
+.clientes-container button {
+  background-color: #1565c0;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.clientes-container button:hover {
+  background-color: #0d47a1;
+}
+
+.clientes-container table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+.clientes-container th {
+  background-color: #1565c0;
+  color: white;
+  padding: 14px;
+  text-align: left;
+}
+
+.clientes-container td {
+  padding: 14px;
+  border-bottom: 1px solid #ddd;
+}
+
+.clientes-container tbody tr:hover {
+  background-color: #eef5ff;
+}
+
+.mensagem-erro {
+  color: red;
+}
+
+
+.formulario-cliente {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.formulario-cliente div {
+  display: flex;
+  flex-direction: column;
+}
+
+.formulario-cliente label {
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #123c72;
+}
+
+.formulario-cliente input {
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.formulario-cliente input:focus {
+  outline: none;
+  border-color: #1565c0;
+}
+
+.clientes-container button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 650px) {
+  .formulario-cliente {
+    grid-template-columns: 1fr;
+  }
+}
+
+.botoes-formulario {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.botoes-formulario button {
+    width: auto;
+}
+
+.botao-cancelar {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    cursor: pointer;
+}
+
+.botao-cancelar:hover {
+    background-color: #545b62;
+}
+
+
+/* Botões Editar e Excluir */
+
+.acoes-cliente {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* Mantém os botões lado a lado */
+
+.acoes-cliente button {
+    width: auto;
+    margin: 0;
+    padding: 10px 16px;
+    white-space: nowrap;
+}
+
+/* Botão Excluir */
+
+.acoes-cliente .botao-excluir {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Efeito ao passar o mouse */
+
+.acoes-cliente .botao-excluir:hover {
+    background-color: #b02a37;
+}
+
+/* Botões desabilitados */
+
+.acoes-cliente button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+/* Pesquisa */
+
+.pesquisa-clientes {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+    align-items: center;
+}
+
+.pesquisa-clientes input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.pesquisa-clientes button {
+    width: auto;
+    margin: 0;
+    padding: 12px 20px;
+}
+
+/* Paginação */
+
+.paginacao-clientes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.paginacao-clientes button {
+    width: auto;
+    margin: 0;
+    padding: 10px 20px;
+}
+
+.paginacao-clientes button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+
+/* Área de ordenação */
+
+.ordenacao-clientes {
+    display: flex;
+    align-items: end;
+    gap: 15px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+/* Campos */
+
+.ordenacao-clientes > div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ordenacao-clientes label {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Seletores */
+
+.ordenacao-clientes select {
+    padding: 11px 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    min-width: 160px;
+    background-color: white;
+}
+
+/* Botão Ordenar */
+
+.ordenacao-clientes button {
+    width: auto;
+    margin: 0;
+    padding: 12px 20px;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .ordenacao-clientes {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .ordenacao-clientes > div,
+    .ordenacao-clientes select,
+    .ordenacao-clientes button {
+        width: 100%;
+    }
+}
+
+
+/* Campos inválidos */
+
+.formulario-cliente input.campo-invalido {
+    border: 2px solid #dc3545;
+    background-color: #fff8f8;
+}
+
+/* Mensagens abaixo dos campos */
+
+.erro-campo {
+    display: block;
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+/* Destaque ao selecionar campo */
+
+.formulario-cliente input:focus {
+    outline: none;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+}

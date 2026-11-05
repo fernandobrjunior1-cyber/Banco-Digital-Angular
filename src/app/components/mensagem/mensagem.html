@@ -1,0 +1,28 @@
+
+@if (texto()) {
+
+  <div
+    class="mensagem"
+    [class.sucesso]="tipo() === 'sucesso'"
+    [class.erro]="tipo() === 'erro'"
+    [attr.role]="tipo() === 'erro' ? 'alert' : 'status'">
+
+    <span class="icone">
+      {{ tipo() === 'sucesso' ? '✔' : '⚠' }}
+    </span>
+
+    <span class="texto">
+      {{ texto() }}
+    </span>
+
+    <button
+      type="button"
+      class="fechar"
+      aria-label="Fechar mensagem"
+      (click)="fecharMensagem()">
+      ×
+    </button>
+
+  </div>
+
+}

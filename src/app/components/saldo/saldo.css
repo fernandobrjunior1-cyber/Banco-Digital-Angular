@@ -1,0 +1,20 @@
+
+.card-saldo {
+  background: linear-gradient(135deg, #1565c0, #0d47a1);
+  color: white;
+  padding: 25px;
+  border-radius: 12px;
+  margin: 25px 0 30px;
+}
+
+.card-saldo h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.valor-saldo {
+  font-size: 36px;
+  font-weight: bold;
+  margin: 15px 0 0;
+}

@@ -1,0 +1,63 @@
+
+.mensagem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 15px 18px;
+    margin: 18px 0;
+
+    border-radius: 8px;
+    border: 1px solid;
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Mensagem de sucesso */
+
+.sucesso {
+    background-color: #e8f7ed;
+    border-color: #a3d9b1;
+    color: #176b35;
+}
+
+/* Mensagem de erro */
+
+.erro {
+    background-color: #fdecec;
+    border-color: #efb1b1;
+    color: #a61b29;
+}
+
+/* Ícone */
+
+.icone {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Texto */
+
+.texto {
+    flex: 1;
+}
+
+/* Botão de fechar */
+
+.fechar {
+    background: transparent;
+    border: none;
+    color: inherit;
+
+    font-size: 24px;
+    cursor: pointer;
+
+    width: auto;
+    padding: 0 5px;
+    margin: 0;
+}
+
+.fechar:hover {
+    opacity: 0.6;
+}

@@ -1,0 +1,88 @@
+
+
+<div class="container">
+<h1>Banco Digital</h1>
+
+<p>Bem-vindo ao nosso sistema bancário!</p>
+
+<app-saldo [saldo]="saldo"></app-saldo>
+
+
+<h2>Menu principal</h2>
+
+<button (click)="consultarSaldo()">
+  Consultar Saldo
+</button>
+
+<div class="operacoes">
+
+  <div class="card">
+    <h3>Depósito</h3>
+
+    <label for="valorDeposito">Valor do depósito:</label>
+
+    <input
+      #valorDeposito
+      id="valorDeposito"
+      type="number"
+      placeholder="Digite o valor"
+    />
+
+    <button (click)="depositar(valorDeposito.valueAsNumber)">
+      Depositar
+    </button>
+  </div>
+
+  <div class="card">
+    <h3>Saque</h3>
+
+    <label for="valorSaque">Valor do saque:</label>
+
+    <input
+      #valorSaque
+      id="valorSaque"
+      type="number"
+      placeholder="Digite o valor"
+    />
+
+    <button (click)="sacar(valorSaque.valueAsNumber)">
+      Sacar
+    </button>
+  </div>
+
+</div>
+
+
+
+<h2>Transferência Pix</h2>
+
+<label for="chavePix">Chave Pix:</label>
+
+<input
+  #chavePix
+  id="chavePix"
+  type="text"
+  placeholder="Digite a chave Pix"
+/>
+
+<label for="valorPix">Valor do Pix:</label>
+
+<input
+  #valorPix
+  id="valorPix"
+  type="number"
+  min="0.01"
+  step="0.01"
+  placeholder="Digite o valor"
+/>
+
+<button
+  (click)="enviarPix(chavePix.value, valorPix.valueAsNumber)">
+  Enviar Pix
+</button>
+
+
+<app-extrato [movimentacoes]="movimentacoes"></app-extrato>
+
+<app-clientes></app-clientes>
+

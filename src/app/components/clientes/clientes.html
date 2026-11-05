@@ -1,0 +1,352 @@
+
+<section class="clientes-container">
+
+  <!-- Título do formulário -->
+  <h2>
+    {{ clienteEditando() === null
+      ? 'Cadastrar cliente'
+      : 'Editar cliente' }}
+  </h2>
+
+  <!-- Formulário de cadastro e edição -->
+  
+<form
+  #formCliente="ngForm"
+  (ngSubmit)="salvarCliente()"
+  novalidate>
+
+  <div class="formulario-cliente">
+
+    <!-- Nome -->
+    <div>
+      <label for="nome">Nome</label>
+
+      <input
+        id="nome"
+        name="nome"
+        type="text"
+        [(ngModel)]="novoCliente.nome"
+        #nome="ngModel"
+        placeholder="Digite o nome"
+        required
+        minlength="3"
+        [class.campo-invalido]="nome.invalid && (nome.touched || formCliente.submitted)"
+      />
+
+      @if (nome.invalid && (nome.touched || formCliente.submitted)) {
+        <small class="erro-campo">
+          @if (nome.errors?.['required']) {
+            O nome é obrigatório.
+          } @else if (nome.errors?.['minlength']) {
+            O nome deve ter pelo menos 3 caracteres.
+          }
+        </small>
+      }
+    </div>
+
+    <!-- Cidade -->
+    <div>
+      <label for="cidade">Cidade</label>
+
+      <input
+        id="cidade"
+        name="cidade"
+        type="text"
+        [(ngModel)]="novoCliente.cidade"
+        #cidade="ngModel"
+        placeholder="Digite a cidade"
+        required
+        [class.campo-invalido]="cidade.invalid && (cidade.touched || formCliente.submitted)"
+      />
+
+      @if (cidade.invalid && (cidade.touched || formCliente.submitted)) {
+        <small class="erro-campo">
+          Informe a cidade.
+        </small>
+      }
+    </div>
+
+    <!-- E-mail -->
+    <div>
+      <label for="email">E-mail</label>
+
+      <input
+        id="email"
+        name="email"
+        type="email"
+        [(ngModel)]="novoCliente.email"
+        #email="ngModel"
+        placeholder="Digite o e-mail"
+        required
+        email
+        [class.campo-invalido]="email.invalid && (email.touched || formCliente.submitted)"
+      />
+
+      @if (email.invalid && (email.touched || formCliente.submitted)) {
+        <small class="erro-campo">
+          @if (email.errors?.['required']) {
+            O e-mail é obrigatório.
+          } @else {
+            Informe um e-mail válido.
+          }
+        </small>
+      }
+    </div>
+
+    <!-- Telefone -->
+    <div>
+      <label for="telefone">Telefone</label>
+
+      <input
+        id="telefone"
+        name="telefone"
+        type="tel"
+        [(ngModel)]="novoCliente.telefone"
+        #telefone="ngModel"
+        placeholder="31999999999"
+        required
+        pattern="[0-9]{10,11}"
+        [class.campo-invalido]="telefone.invalid && (telefone.touched || formCliente.submitted)"
+      />
+
+      @if (telefone.invalid && (telefone.touched || formCliente.submitted)) {
+        <small class="erro-campo">
+          Informe um telefone com 10 ou 11 números,
+          sem espaços ou pontuação.
+        </small>
+      }
+    </div>
+
+  </div>
+
+  <!-- Botões -->
+  <div class="botoes-formulario">
+
+    <button
+      type="submit"
+      [disabled]="salvando() || excluindoId() !== null">
+
+      @if (salvando()) {
+        Salvando...
+      } @else {
+        {{ clienteEditando() === null
+          ? 'Cadastrar cliente'
+          : 'Salvar alterações' }}
+      }
+
+    </button>
+
+    @if (clienteEditando() !== null) {
+      <button
+        type="button"
+        class="botao-cancelar"
+        [disabled]="salvando()"
+        (click)="cancelarEdicao()">
+        Cancelar
+      </button>
+    }
+
+  </div>
+
+</form>
+
+
+  <!-- Mensagem de sucesso ou erro -->
+ 
+<!-- Componente reutilizável de mensagens -->
+
+<app-mensagem
+  [texto]="mensagem()"
+  [tipo]="tipoMensagem()"
+  (fechar)="fecharMensagem()">
+</app-mensagem>
+
+
+  <!-- Listagem -->
+  <h2>Clientes cadastrados</h2>
+
+  <!-- Pesquisa -->
+  <div class="pesquisa-clientes">
+
+    <input
+      type="text"
+      placeholder="Pesquisar cliente pelo nome"
+      [ngModel]="busca()"
+      (ngModelChange)="busca.set($event)"
+      (keyup.enter)="pesquisarClientes()"
+    />
+
+    <button
+      type="button"
+      (click)="pesquisarClientes()">
+      Pesquisar
+    </button>
+
+  </div>
+
+  <!-- Ordenação -->
+  <div class="ordenacao-clientes">
+
+    <div>
+      <label for="ordenarPor">
+        Ordenar por
+      </label>
+
+      <select
+        id="ordenarPor"
+        [ngModel]="ordenarPor()"
+        (ngModelChange)="ordenarPor.set($event)">
+
+        <option value="nome">Nome</option>
+        <option value="cidade">Cidade</option>
+        <option value="id">ID</option>
+
+      </select>
+    </div>
+
+    <div>
+      <label for="direcao">
+        Direção
+      </label>
+
+      <select
+        id="direcao"
+        [ngModel]="direcao()"
+        (ngModelChange)="direcao.set($event)">
+
+        <option value="asc">Crescente</option>
+        <option value="desc">Decrescente</option>
+
+      </select>
+    </div>
+
+    <button
+      type="button"
+      (click)="aplicarOrdenacao()">
+      Ordenar
+    </button>
+
+  </div>
+
+  <!-- Atualizar listagem -->
+  <button
+    type="button"
+    (click)="listarClientes()">
+    Atualizar clientes
+  </button>
+
+  <!-- Carregamento -->
+  @if (carregando()) {
+    <p>Carregando clientes...</p>
+  }
+
+  <!-- Mensagem de erro -->
+  @if (erro()) {
+    <p class="mensagem-erro">
+      {{ erro() }}
+    </p>
+  }
+
+  <!-- Tabela de clientes -->
+  @if (!carregando() && !erro()) {
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Cidade</th>
+          <th>E-mail</th>
+          <th>Telefone</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        @for (cliente of clientes(); track cliente.id) {
+
+          <tr>
+
+            <td>{{ cliente.id }}</td>
+            <td>{{ cliente.nome }}</td>
+            <td>{{ cliente.cidade }}</td>
+            <td>{{ cliente.email }}</td>
+            <td>{{ cliente.telefone }}</td>
+
+            <td>
+              <div class="acoes-cliente">
+
+                <!-- Editar -->
+                <button
+                  type="button"
+                  [disabled]="salvando() || excluindoId() !== null"
+                  (click)="editarCliente(cliente)">
+                  Editar
+                </button>
+
+                <!-- Excluir -->
+                <button
+                  type="button"
+                  class="botao-excluir"
+                  [disabled]="salvando() || excluindoId() !== null"
+                  (click)="excluirCliente(cliente)">
+
+                  {{ excluindoId() === cliente.id
+                    ? 'Excluindo...'
+                    : 'Excluir' }}
+
+                </button>
+
+              </div>
+            </td>
+
+          </tr>
+
+        } @empty {
+
+          <tr>
+            <td colspan="6">
+              Nenhum cliente cadastrado.
+            </td>
+          </tr>
+
+        }
+
+      </tbody>
+
+    </table>
+
+    <!-- Paginação fora da tabela -->
+    <div class="paginacao-clientes">
+
+      <button
+        type="button"
+        (click)="paginaAnterior()"
+        [disabled]="pagina() <= 1">
+        Anterior
+      </button>
+
+      <span>
+        Página {{ pagina() }} de {{ totalPaginas() }}
+      </span>
+
+      <button
+        type="button"
+        (click)="proximaPagina()"
+        [disabled]="pagina() >= totalPaginas()">
+        Próxima
+      </button>
+
+    </div>
+
+    <!-- Total de registros -->
+    <p>
+      Total de clientes encontrados:
+      {{ totalRegistros() }}
+    </p>
+
+  }
+
+</section>
